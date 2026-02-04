@@ -1,3 +1,5 @@
+
+
 # Patient Management System (Web App)
 
 This is a simple **Patient Management System** built with **Python (Flask) + SQLite**. It provides basic CRUD operations and a clean, responsive UI for managing patients.
