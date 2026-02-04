@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_DIR="/home/ubuntu/PMS/PMS"
+APP_DIR="/home/ubuntu/PMS"
 BRANCH="main"
 
 cd "$APP_DIR"
