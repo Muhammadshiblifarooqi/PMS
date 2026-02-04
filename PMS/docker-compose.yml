@@ -1,0 +1,15 @@
+services:
+  app:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_PATH=/data/patients.db
+    volumes:
+      # DB stored in named volume (outside container image)
+      - pms-data:/data
+      # Or use host folder: - ./data:/data
+
+volumes:
+  pms-data:

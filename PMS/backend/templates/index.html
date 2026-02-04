@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card-grid">
+  <section class="card">
+    <h2>Search Patients</h2>
+    <form method="get" class="form-grid">
+      <div class="form-field">
+        <label for="patient_id">Patient ID</label>
+        <input
+          type="text"
+          id="patient_id"
+          name="patient_id"
+          value="{{ search.patient_id }}"
+          placeholder="Search by ID"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="name">Patient Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ search.name }}"
+          placeholder="Search by name"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="phone">Phone Number</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value="{{ search.phone }}"
+          placeholder="Search by phone"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="address">Address</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value="{{ search.address }}"
+          placeholder="Search by address"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Clear</a>
+      </div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Add New Patient</h2>
+    <form method="post" class="form-grid">
+      <input type="hidden" name="form_type" value="create" />
+
+      <div class="form-field">
+        <label for="patient_id_create">Patient ID *</label>
+        <input
+          type="text"
+          id="patient_id_create"
+          name="patient_id"
+          required
+          placeholder="Unique patient ID"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="serial_number">Serial Number</label>
+        <input
+          type="text"
+          id="serial_number"
+          name="serial_number"
+          placeholder="Serial number"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="visit_date">Date *</label>
+        <input
+          type="date"
+          id="visit_date"
+          name="visit_date"
+          required
+          value="{{ today }}"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="name_create">Patient Name *</label>
+        <input
+          type="text"
+          id="name_create"
+          name="name"
+          required
+          placeholder="Patient name"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="father_or_husband_name">Father/Husband Name</label>
+        <input
+          type="text"
+          id="father_or_husband_name"
+          name="father_or_husband_name"
+          placeholder="Father or husband name"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" min="0" max="150" />
+      </div>
+
+      <div class="form-field">
+        <label for="phone_create">Phone Number</label>
+        <input
+          type="text"
+          id="phone_create"
+          name="phone"
+          placeholder="Phone number"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="address_create">Address</label>
+        <textarea
+          id="address_create"
+          name="address"
+          rows="2"
+          placeholder="Address"
+        ></textarea>
+      </div>
+
+      <div class="form-field form-field-full">
+        <label for="description">Description / Medical Notes</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="3"
+          placeholder="Enter medical notes, diagnosis, etc."
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">Save Patient</button>
+      </div>
+    </form>
+  </section>
+</section>
+
+<section class="card table-card">
+  <h2>Patients</h2>
+  {% if patients %}
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Serial #</th>
+          <th>Patient ID</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Father/Husband</th>
+          <th>Age</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in patients %}
+        <tr>
+          <td>{{ p.serial_number }}</td>
+          <td>{{ p.patient_id }}</td>
+          <td>{{ p.visit_date }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.father_or_husband_name }}</td>
+          <td>{{ p.age }}</td>
+          <td>{{ p.phone }}</td>
+          <td>{{ p.address }}</td>
+          <td class="description-cell">{{ p.description }}</td>
+          <td class="actions-cell">
+            <a
+              href="{{ url_for('edit_patient', id=p.id) }}"
+              class="btn btn-small"
+              >Edit</a
+            >
+            <form
+              method="post"
+              action="{{ url_for('delete_patient', id=p.id) }}"
+              onsubmit="return confirmDelete(this);"
+              class="inline-form"
+            >
+              <button type="submit" class="btn btn-small btn-danger">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="empty-state">No patients found. Try searching or add a new one.</p>
+  {% endif %}
+</section>
+{% endblock %}
+

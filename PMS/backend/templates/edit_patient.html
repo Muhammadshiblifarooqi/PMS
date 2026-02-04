@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Edit Patient</h2>
+  <form method="post" class="form-grid">
+    <div class="form-field">
+      <label for="patient_id_edit">Patient ID *</label>
+      <input
+        type="text"
+        id="patient_id_edit"
+        name="patient_id"
+        value="{{ patient.patient_id }}"
+        required
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="serial_number_edit">Serial Number</label>
+      <input
+        type="text"
+        id="serial_number_edit"
+        name="serial_number"
+        value="{{ patient.serial_number }}"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="visit_date_edit">Date *</label>
+      <input
+        type="date"
+        id="visit_date_edit"
+        name="visit_date"
+        value="{{ patient.visit_date }}"
+        required
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="name_edit">Patient Name *</label>
+      <input
+        type="text"
+        id="name_edit"
+        name="name"
+        value="{{ patient.name }}"
+        required
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="father_or_husband_name_edit">Father/Husband Name</label>
+      <input
+        type="text"
+        id="father_or_husband_name_edit"
+        name="father_or_husband_name"
+        value="{{ patient.father_or_husband_name }}"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="age_edit">Age</label>
+      <input
+        type="number"
+        id="age_edit"
+        name="age"
+        min="0"
+        max="150"
+        value="{{ patient.age }}"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="phone_edit">Phone Number</label>
+      <input
+        type="text"
+        id="phone_edit"
+        name="phone"
+        value="{{ patient.phone }}"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="address_edit">Address</label>
+      <textarea
+        id="address_edit"
+        name="address"
+        rows="2"
+      >{{ patient.address }}</textarea>
+    </div>
+
+    <div class="form-field form-field-full">
+      <label for="description_edit">Description / Medical Notes</label>
+      <textarea
+        id="description_edit"
+        name="description"
+        rows="3"
+      >{{ patient.description }}</textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success">Save Changes</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
